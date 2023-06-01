@@ -2,6 +2,32 @@
 import pygame
 import sys
 
+
+def borrar_ultimo_trazo(surface, cache_ab, cache_rect, cache_tr, cache_cuadrado):
+    if len(cache_ab) > 0:
+        cache_ab.pop()
+    elif len(cache_rect) > 0:
+        cache_rect.pop()
+    elif len(cache_tr) > 0:
+        cache_tr.pop()
+    elif len(cache_cuadrado) > 0:
+        cache_cuadrado.pop()
+    else:
+        print("No hay trazos para borrar")
+
+    surface.fill(background_color)
+
+    for dato in cache_cuadrado:
+        cuadro(dato[0], dato[1], dato[2], dato[3], dato[4])
+    for dato in cache_rect:
+        rectangulo(dato[0], dato[1], dato[2], dato[3], dato[4], dato[5])
+    for dato in cache_ab:
+        linea_d(dato[0], dato[1], dato[2], dato[3], dato[4], dato[5])
+    for dato in cache_tr:
+        triangulo(dato[0], dato[1], dato[2], dato[3], dato[4], dato[5])
+
+    pygame.display.flip()
+
 #cptura los datos de las cordenadas para dibujar a la linea del punto a al punto b
 def posicion_linea():
     global x1
@@ -38,7 +64,6 @@ def linea_d(surface, color, x1_ab, y1_ab, x2_ab, y2_ab):
             error += dx
             y1_ab += sy
     pygame.display.flip()
-
 #funcion para capturar punto a y punto b
 def llamar_ab():
     ab = cmd.split(" ")
@@ -53,10 +78,7 @@ def llamar_ab():
         x2_ab = int(ab[3])
         y2_ab= int(ab[4])
         linea_d(surface, color, x1_ab, y1_ab, x2_ab, y2_ab)
-        
-
     else: print("datos incompletos")
-
 #pide cordenadas y medida del cuadrado
 def posicion_c():
     cuadrito = cmd.split(" ")
@@ -70,7 +92,6 @@ def posicion_c():
         size_c = int(cuadrito[4])*42
         cuadro(surface,x_c,y_c,size_c,color)
     else: print("datos incompletos")
-
 #dibuja el cuadrado
 def cuadro(surface, x, y, size, color):
     for i in range(size):
@@ -78,14 +99,13 @@ def cuadro(surface, x, y, size, color):
             if i == 0 or i == size-1 or j == 0 or j == size-1:
                 surface.set_at((x + i, y + j), color)
     pygame.display.flip()
-
+#imprimir rectangulo
 def rectangulo(surface,x_r,y_r,base_r,altura_r,color):
     for i in range(base_r):
         for j in range(altura_r):
             if i == 0 or i == base_r-1 or j == 0 or j == altura_r-1:
                 surface.set_at((x_r + i, y_r + j), color)
     pygame.display.flip()
-
 #pedir datos de rectangulo 
 def datos_rect():
     rect = cmd.split(" ")
@@ -102,12 +122,42 @@ def datos_rect():
         rectangulo(surface,x_r,y_r,base_r,altura_r,color)
     else: ("datos incompletos")
 
+def triangulo(surface,x_t,y_t,base_t,altura_t,color):
+    x1_ab = x_t
+    x2_ab = x_t
+    y1_ab = y_t
+    y2_ab = y_t
+    for i in range(base_t):
+        surface.set_at((x1_ab, y1_ab), color)
+        x1_ab+=1
+    for i in range(altura_t):
+        surface.set_at((x2_ab, y2_ab), color)
+        y2_ab-=1
+    linea_d(surface, color, x1_ab, y1_ab, x2_ab, y2_ab)
+ 
+
+#pide datos de triangulo
+def datos_tri():
+    rect = cmd.split(" ")
+    # eje x de rectangulo
+    global x_t
+    global y_t
+    global base_t
+    global altura_t
+    if len(rect) == 6:
+        x_t = int(rect[2])
+        y_t = int(rect[3])
+        base_t = int(rect[4])*42
+        altura_t = int(rect[5])*42
+        triangulo(surface,x_t,y_t,base_t,altura_t,color)
+    else: ("datos incompletos")
+
+
 def linea_h(x,y,size,color):
     for i in range(0, size):
         surface.set_at(( x + i, y), color)
     ## Mostrar la superficie en la pantalla
     pygame.display.flip()
-
 def linea_v(x,y,size,color):
     for i in range(0,size):
         surface.set_at((x, y + i), color)
@@ -144,6 +194,7 @@ cache_lineah = []
 cache_cuadrado = []
 cache_ab = []
 cache_rect = []
+cache_tr = []
 
 # Color de inicio 
 color = (255, 0, 0)
@@ -155,14 +206,16 @@ while True:
     if "draw cuadro" in cmd:
         posicion_c()
         cache_cuadrado.append((surface,x_c,y_c,size_c,color))
-        cuadro(surface, x_c, y_c, size_c, color)
 
     elif "draw rect" in cmd:
         datos_rect()
         cache_rect.append((surface,x_r,y_r,base_r,altura_r,color))
 
+    elif "draw tr" in cmd:
+        datos_tri()
+        cache_tr.append((surface,x_t,y_t,base_t,altura_t,color))
+
     elif "lineab" in cmd:
-        print("Linea a b")
         llamar_ab()
         cache_ab.append((surface, color, x1_ab, y1_ab, x2_ab, y2_ab))
 
@@ -176,7 +229,9 @@ while True:
         posicion()
         cache_lineav.append((x,y,size,color))
         linea_v(x,y,size,color)
-
+#borrar
+    elif cmd == "undo":
+        borrar_ultimo_trazo(surface, cache_ab, cache_rect, cache_tr, cache_cuadrado)
 
 #COLOR LINEA
     elif cmd == "color -ls":
@@ -212,6 +267,8 @@ while True:
             rectangulo(dato[0], dato[1], dato[2], dato[3], dato[4], dato[5])
         for dato in cache_ab:
             linea_d(dato[0], dato[1], dato[2], dato[3], dato[4], dato[5])
+        for dato in cache_tr:
+            triangulo(dato[0], dato[1], dato[2], dato[3], dato[4], dato[5])
         print("el color de fondo cambio a negro")
 
     elif cmd == "fondo set blanco":
@@ -227,10 +284,11 @@ while True:
             rectangulo(dato[0], dato[1], dato[2], dato[3], dato[4], dato[5])
         for dato in cache_ab:
             linea_d(dato[0], dato[1], dato[2], dato[3], dato[4], dato[5])
+        for dato in cache_tr:
+            triangulo(dato[0], dato[1], dato[2], dato[3], dato[4], dato[5])
 
         print("el color de fondo cambio a blanco")
 
-#tamaño pixel
 
 #SALIR
     elif cmd == "exit":
