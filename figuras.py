@@ -42,9 +42,9 @@ def triangulo_isoseles(surface,x_i,y_i,base_i,altura_i,color):
     y1_ab = y_i
     y2_ab = y_i
     y3_ab = y_i - altura_i
-    linea_d(surface,color,x1_ab,y1_ab,x2_ab,y2_ab)
-    linea_d(surface,color,x2_ab,y2_ab,x3_ab,y3_ab)
-    linea_d(surface,color,x3_ab,y3_ab,x1_ab,y1_ab)
+    linea_ab(surface,color,x1_ab,y1_ab,x2_ab,y2_ab)
+    linea_ab(surface,color,x2_ab,y2_ab,x3_ab,y3_ab)
+    linea_ab(surface,color,x3_ab,y3_ab,x1_ab,y1_ab)
 #imprime un triangulo escaleno
 def triangulo_escaleno(surface,x_t,y_t,base_t,altura_t,color):
     x1_ab = x_t
@@ -57,7 +57,7 @@ def triangulo_escaleno(surface,x_t,y_t,base_t,altura_t,color):
     for i in range(altura_t):
         surface.set_at((x2_ab, y2_ab), color)
         y2_ab-=1
-    linea_d(surface, color, x1_ab, y1_ab, x2_ab, y2_ab)
+    linea_ab(surface, color, x1_ab, y1_ab, x2_ab, y2_ab)
 #imprime un triangulo equilatero
 def triangulo_equilatero(surface,x_e,y_e,base_e,color):
     angulo = math.radians(60)
@@ -67,9 +67,9 @@ def triangulo_equilatero(surface,x_e,y_e,base_e,color):
     y2_ab = y_e
     x3_ab = x_e + base_e // 2
     y3_ab = y_e - int(math.sin(angulo)*base_e)
-    linea_d(surface,color,x1_ab,y1_ab,x2_ab,y2_ab)
-    linea_d(surface,color,x2_ab,y2_ab,x3_ab,y3_ab)
-    linea_d(surface,color,x3_ab,y3_ab,x1_ab,y1_ab)
+    linea_ab(surface,color,x1_ab,y1_ab,x2_ab,y2_ab)
+    linea_ab(surface,color,x2_ab,y2_ab,x3_ab,y3_ab)
+    linea_ab(surface,color,x3_ab,y3_ab,x1_ab,y1_ab)
 #dibuja un circulo
 def circulo(surface,x_cir,y_cir,radio,color):
     puntos = 1000
