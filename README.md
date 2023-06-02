@@ -24,11 +24,11 @@ Este paint utiliza comandos para poder dibujar en el los comandos para las figur
 	
 ## Dibujar un triangulo Isoseles:# 
 
-		draw tr-is X Y BASE ALTURA 
+	draw tr-is X Y BASE ALTURA 
 		
 ## Dibujar triangulo equilatero:#
 		
-		draw tr-eq X Y BASE
+	draw tr-eq X Y BASE
 		
 ## Ejemplo 
 
