@@ -32,11 +32,6 @@ Este paint utiliza comandos para poder dibujar en el los comandos para las figur
 ## Dibujar un circulo: 
 	
 	draw circulo X Y RADIO
-		
-## Ejemplo 
-
-	draw cuadro 100 100 5  
-	
 	
 ## Para cambiar los colores de la linea se usa el comando
 
