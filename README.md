@@ -22,24 +22,27 @@ Este paint utiliza comandos para poder dibujar en el los comandos para las figur
 	draw tr-es X Y BASE ALTURA 
 	
 	
-## Dibujar un triangulo Isoseles:# 
+## Dibujar un triangulo Isoseles:
 
 	draw tr-is X Y BASE ALTURA 
 		
-## Dibujar triangulo equilatero:#
+## Dibujar triangulo equilatero:
 		
 	draw tr-eq X Y BASE
+## Dibujar un circulo: 
+	
+	draw circulo X Y RADIO
 		
 ## Ejemplo 
 
 	draw cuadro 100 100 5  
-
-
-## Para cambiar los colores de la linea se usa el comando#
+	
+	
+## Para cambiar los colores de la linea se usa el comando
 
 	color -ls 
 
-## Para cambiar el color del fondo usamos#
+## Para cambiar el color del fondo usamos
 	
 	fondo ls
 
