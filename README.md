@@ -7,37 +7,44 @@ los siguientes comandos:
 
 Este paint utiliza comandos para poder dibujar en el los comandos para las figuras son los siguientes: 
 
-# Dibujar un cuadrado:
+## Dibujar un cuadrado:
 	
-	draw cuadro (seguido de las coordenadas) X Y (y la distancia por lado) 
-	ejemplo: draw cuadro 100 100 5  
+	draw cuadro X Y BASE 
 	
-#(IMPORTANTE: solo espacios)	
 	
-# Dibujar un rectangulo:
+## Dibujar un rectangulo:
 
 	draw rect X Y BASE ALTURA 
 	
 	
-# Dibujar un triango escaleno:
+## Dibujar un triango escaleno:
 
 	draw tr-es X Y BASE ALTURA 
 	
 	
-# Dibujar un triangulo Isoseles:# 
+## Dibujar un triangulo Isoseles:# 
 
 		draw tr-is X Y BASE ALTURA 
-# Dibujar triangulo equilatero:#
+		
+## Dibujar triangulo equilatero:#
 		
 		draw tr-eq X Y BASE
+		
+## Ejemplo 
+
+	draw cuadro 100 100 5  
 
 
-#Para cambiar los colores de la linea se usa el comando#
+## Para cambiar los colores de la linea se usa el comando#
 
 	color -ls 
 
-#Para cambiar el color del fondo usamos#
+## Para cambiar el color del fondo usamos#
 	
 	fondo ls
 
+## Ejemplo
+	
+	draw cuadro 100 100 5
+(IMPORTANTE: solo espacios entre cada cordenada y la distancia de la base)	
 
